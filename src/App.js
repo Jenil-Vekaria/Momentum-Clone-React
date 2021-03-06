@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { fetchBackground, fetchQuote } from './api'
+import { fetchQuote, fetchWeather } from './api'
 import './App.css'
 
 export class App extends Component {
@@ -10,7 +10,14 @@ export class App extends Component {
     this.state = {
       quote: '',
       author: '',
-      backgroundImage: ''
+      backgroundImage: '',
+      weather: {
+        city: '',
+        country: '',
+        temp: '',
+        icon: '',
+        description: ''
+      }
     }
   }
 
@@ -20,12 +27,25 @@ export class App extends Component {
 
   getQuote = async () => {
     const { quote, author, background } = await fetchQuote()
+    const { name, temp, icon, main, country } = await fetchWeather()
 
-    if (quote && author && background) {
+    if (quote) {
       this.setState({
         quote,
         author,
         backgroundImage: background
+      })
+    }
+
+    if (name) {
+      this.setState({
+        weather: {
+          city: name,
+          country,
+          temp,
+          icon,
+          description: main
+        }
       })
     }
   }
@@ -38,6 +58,16 @@ export class App extends Component {
     return (
       <div className="App">
         <div className="background" style={appStyle}></div>
+
+        <div className="weatherContainer">
+          <div className="temperatureContainer">
+            <img src={this.state.weather.icon} alt="weather icon" />
+            <h2 className="temperature">{Math.floor(this.state.weather.temp)}&deg;</h2>
+          </div>
+          <h3 className="weatherDescription">{this.state.weather.description}</h3>
+          <h4 className="city">{this.state.weather.city}, {this.state.weather.country}</h4>
+        </div>
+
         <div className="welcomeContainer">
           <p className="clock">12:00</p>
           <p className="welcomeMessgage">Good Evening, Jenil</p>

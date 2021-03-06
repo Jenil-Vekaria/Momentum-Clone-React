@@ -1,0 +1,109 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    overflow: hidden;
+}
+
+.App{
+    height: 100vh;
+    background-color: #2c3e50;
+}
+
+.background{
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    animation: fadein 3s;
+}
+
+/* Weather Data */
+.weatherContainer{
+    position: absolute;
+    top:10px;
+    right:10px;
+    text-align: end;
+}
+.temperatureContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.temperature{
+    font-weight: 100;
+}
+.weatherDescription{
+    font-weight: 100;
+}
+.city{
+    font-weight: 100;
+}
+
+/* Clock and Welcome Message */
+.welcomeContainer{
+    position: absolute;
+    top: 25%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.clock{
+    font-size: 10rem;
+}
+.welcomeMessgage{
+    font-size: 4rem;
+}
+
+/* Quote */
+.quote-container{
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    font-size: 18px;
+    width: 80%;
+    max-height: 100;
+    font-weight: 100;
+}
+.quote{
+    position: relative;
+    margin-top: 20px;
+    transition: 0.5s ease;
+    z-index: 2;
+}
+.author{
+    position: relative;
+    margin-top: 5px;
+    transition: 0.5s ease;
+    z-index: 1;
+    margin-top: -25px;
+    opacity: 0;
+    font-size: 15px;
+}
+.quote-container:hover > .author{
+    opacity: 1;
+    transform: translateY(20px);
+}
+.quote-container:hover > .quote{
+    transform: translateY(-10px);
+}
+
+
+
+/* Animation */
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+

@@ -31,12 +31,13 @@ export const fetchWeather = async () => {
         const request = axios.get(requestURL)
         const response = await request
 
-        const { data: { name, main: { temp }, weather } } = response
+        const { data: { name, sys: { country }, main: { temp }, weather } } = response
         let { icon, main } = weather[0]
 
-        icon = `${process.env.REACT_APP_WEATHER_ICON_URL}${icon}@2x.png`
+        icon = `${process.env.REACT_APP_WEATHER_ICON_URL}${icon}.png`
 
-        return { name, temp, icon, main }
+        console.log({ name, temp, icon, main, country })
+        return { name, temp, icon, main, country }
 
     } catch (error) {
         console.error(error)
