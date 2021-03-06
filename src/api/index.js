@@ -24,3 +24,22 @@ export const fetchQuote = async () => {
 
     return ''
 }
+
+export const fetchWeather = async () => {
+    try {
+        const requestURL = `${process.env.REACT_APP_WEATHER_API_URL}?q=toronto&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`
+        const request = axios.get(requestURL)
+        const response = await request
+
+        const { data: { name, main: { temp }, weather } } = response
+        let { icon, main } = weather[0]
+
+        icon = `${process.env.REACT_APP_WEATHER_ICON_URL}${icon}@2x.png`
+
+        return { name, temp, icon, main }
+
+    } catch (error) {
+        console.error(error)
+    }
+    return ''
+}
