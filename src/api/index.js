@@ -36,11 +36,11 @@ export const fetchWeather = async () => {
 
         icon = `${process.env.REACT_APP_WEATHER_ICON_URL}${icon}.png`
 
-        console.log({ name, temp, icon, main, country })
         return { name, temp, icon, main, country }
 
     } catch (error) {
         console.error(error)
     }
+
     return ''
 }

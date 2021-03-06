@@ -11,6 +11,7 @@ export class App extends Component {
       quote: '',
       author: '',
       backgroundImage: '',
+      date: new Date(),
       weather: {
         city: '',
         country: '',
@@ -22,7 +23,17 @@ export class App extends Component {
   }
 
   async componentDidMount() {
+    this.timer = setInterval(
+      () => this.setState({ date: new Date() }),
+      1000
+    );
+
     this.getQuote()
+  }
+
+  componentWillUnmount() {
+    console.log('clear')
+    clearInterval(this.timer);
   }
 
   getQuote = async () => {
@@ -55,6 +66,19 @@ export class App extends Component {
     const appStyle = {
       backgroundImage: `linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('${this.state.backgroundImage}')`
     }
+
+    const currentTime = this.state.date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' })
+      .replace("AM", "")
+      .replace("PM", "")
+
+    const welcomeMessgage = this.state.date.getHours() >= 13
+      ? 'Good Evening, '
+      : (
+        this.state.date.getHours() >= 12
+          ? 'Good Afternoon, '
+          : 'Good Morning, '
+      )
+
     return (
       <div className="App">
         <div className="background" style={appStyle}></div>
@@ -69,11 +93,11 @@ export class App extends Component {
         </div>
 
         <div className="welcomeContainer">
-          <p className="clock">12:00</p>
-          <p className="welcomeMessgage">Good Evening, Jenil</p>
+          <p className="clock">{currentTime}</p>
+          <p className="welcomeMessgage">{welcomeMessgage}Jenil</p>
         </div>
 
-        <div className="quote-container">
+        <div className="quoteContainer">
           <p className="quote">"{this.state.quote}"</p>
           <p className="author">-{this.state.author}</p>
         </div>
