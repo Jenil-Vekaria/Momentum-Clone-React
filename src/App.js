@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { fetchQuote, fetchWeather } from './api'
+import { fetchBackground, fetchQuote, fetchWeather } from './api'
 import { MdEdit } from "react-icons/md";
 import './App.css'
 
@@ -9,12 +9,21 @@ export class App extends Component {
     super(props)
 
     this.state = {
-      quote: '',
-      author: '',
-      backgroundImage: '',
-      username: '',
+      quote: {
+        quote: '',
+        author: ''
+      },
+      background: {
+        backgroundImage: '',
+        user: '',
+        city: '',
+        country: ''
+      },
       date: new Date(),
-      editUsername: true,
+      welcomeMessage: {
+        username: '',
+        editUsername: true,
+      },
       weather: {
         city: '',
         country: '',
@@ -34,11 +43,14 @@ export class App extends Component {
     );
 
     // Get the username from localstorage
-    const username = localStorage.getItem('username')
+    const username = localStorage.getItem('username') || ''
+    const editUsername = username ? false : true
     if (username) {
       this.setState({
-        username,
-        editUsername: false
+        welcomeMessage: {
+          username,
+          editUsername: false
+        }
       })
     }
 
@@ -46,19 +58,26 @@ export class App extends Component {
   }
 
   componentWillUnmount() {
-    console.log('clear')
     clearInterval(this.timer);
   }
 
   getQuote = async () => {
-    const { quote, author, background } = await fetchQuote()
+    const { full, user, city, locationCountry } = await fetchBackground()
+    const { quote, author } = await fetchQuote()
     const { name, temp, icon, main, country } = await fetchWeather()
 
     if (quote) {
       this.setState({
-        quote,
-        author,
-        backgroundImage: background
+        quote: {
+          quote,
+          author
+        },
+        background: {
+          backgroundImage: full,
+          user,
+          city,
+          country: locationCountry
+        }
       })
     }
 
@@ -73,37 +92,41 @@ export class App extends Component {
         }
       })
     }
+
+    console.log(this.state)
   }
 
   saveUsername = (e) => {
+
+    const username = e.target.value
+    let editUsername = true
+
+    if (e.key === 'Enter') {
+      localStorage.setItem('username', this.state.welcomeMessage.username)
+      editUsername = false
+    }
+
     // Save the username to the state
     this.setState({
-      username: e.target.value
+      welcomeMessage: { username, editUsername }
     })
-    if (e.key === 'Enter') {
-      // Save
-      localStorage.setItem('username', this.state.username)
-      this.setState({
-        editUsername: false
-      })
-    }
   }
 
   getSavedUsername = () => {
-    return localStorage.getItem('username', this.state.username)
+    return localStorage.getItem('username', this.state.welcomeMessage.username) || ' '
   }
 
   editUsername = () => {
     console.log('Edit')
     this.setState({
-      editUsername: true
+      welcomeMessage: { editUsername: true }
     })
   }
 
   render() {
 
     const appStyle = {
-      backgroundImage: `linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('${this.state.backgroundImage}')`
+      backgroundImage: `linear-gradient(rgba(0,0,0,0.15),rgba(0,0,0,0.15)), url('${this.state.background.backgroundImage}')`
     }
 
     const currentTime = this.state.date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' })
@@ -118,8 +141,8 @@ export class App extends Component {
           : 'Good morning, '
       )
 
-    const welcomeMessageClassAnimation = this.getSavedUsername() && !this.state.editUsername ? 'show' : 'hide'
-    const enterUsernameClassAnimation = this.getSavedUsername() && !this.state.editUsername ? 'hide' : 'show'
+    const welcomeMessageClassAnimation = this.getSavedUsername() && !this.state.welcomeMessage.editUsername ? 'show' : 'hide'
+    const enterUsernameClassAnimation = this.getSavedUsername() && !this.state.welcomeMessage.editUsername ? 'hide' : 'show'
 
     return (
       <div className="App">
@@ -137,18 +160,23 @@ export class App extends Component {
         <div className="welcomeContainer">
           <p className="clock">{currentTime}</p>
           <div className={`welcomeMessage  ${welcomeMessageClassAnimation}`}>
-            <p>{welcomeMessgage}{this.state.username}.</p>
+            <p>{welcomeMessgage}{this.state.welcomeMessage.username}.</p>
             <span className="editUsername" onClick={this.editUsername}><MdEdit size={20} /></span>
           </div>
           <div className={`usernameForm ${enterUsernameClassAnimation}`}>
             <label className="usernameLabel">What's your name?</label>
-            <input className="username" type="text" disabled={!this.state.editUsername} value={this.state.username} onChange={this.saveUsername} onKeyDown={this.saveUsername} />
+            <input className="username"
+              type="text"
+              disabled={!this.state.welcomeMessage.editUsername}
+              value={this.state.welcomeMessage.username}
+              onChange={this.saveUsername}
+              onKeyDown={this.saveUsername} />
           </div>
         </div>
 
         <div className="quoteContainer">
-          <p className="quote">"{this.state.quote}"</p>
-          <p className="author">-{this.state.author}</p>
+          <p className="quote">"{this.state.quote.quote}"</p>
+          <p className="author">-{this.state.quote.author}</p>
         </div>
       </div>
     )
