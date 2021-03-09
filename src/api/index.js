@@ -54,11 +54,16 @@ export const fetchBackground = async () => {
             const requestURL = `${process.env.REACT_APP_UNSPLASH_API_URL}?client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}&orientation=landscape&query=hill`
             const request = axios.get(requestURL)
             const response = await request;
-            const { data: { urls: { full }, user: { name }, location: { city, country } } } = response
+            let { data: { urls: { full }, user: { name }, location: { city, country }, links: { html } } } = response
 
             let user = name
             let locationCountry = country
-            const result = { full, user, city, locationCountry }
+
+            if (city && country) {
+                city += ', '
+            }
+
+            const result = { full, user, city, locationCountry, html }
 
             localStorage.setItem('backgroundImage', JSON.stringify(result))
             localStorage.setItem('lastmodified', new Date())

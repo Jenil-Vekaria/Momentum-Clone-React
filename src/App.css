@@ -143,6 +143,22 @@ body{
     transform: translateY(-10px);
 }
 
+/* Background Image Credit */
+.backgroundLocation{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 14px;
+    font-weight: 100;
+}
+.photographer{
+    font-size: 12px;
+    text-decoration: none;
+    color: white;
+    padding-top: 5px;
+    opacity: 0.65;
+}
+
 /* Animation Class */
 .show{
     transition: 1s ease;
@@ -160,6 +176,11 @@ body{
     to   { opacity: 1; }
 }
 /* Responsive Design */
+@media only screen and (max-width: 1000px){
+    .backgroundLocation{
+        display: none;
+    }
+}
 @media only screen and (max-width: 600px) {
     .clock{
         font-size: 8rem;
@@ -167,6 +188,7 @@ body{
     .welcomeMessgage{
         font-size: 3rem;
     }
+    
 }
 @media only screen and (max-width: 450px) {
     .quoteContainer{

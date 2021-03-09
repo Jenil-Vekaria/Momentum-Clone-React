@@ -17,7 +17,8 @@ export class App extends Component {
         backgroundImage: '',
         user: '',
         city: '',
-        country: ''
+        country: '',
+        directLink: ''
       },
       date: new Date(),
       welcomeMessage: {
@@ -62,7 +63,7 @@ export class App extends Component {
   }
 
   getQuote = async () => {
-    const { full, user, city, locationCountry } = await fetchBackground()
+    const { full, user, city, locationCountry, html } = await fetchBackground()
     const { quote, author } = await fetchQuote()
     const { name, temp, icon, main, country } = await fetchWeather()
 
@@ -76,7 +77,8 @@ export class App extends Component {
           backgroundImage: full,
           user,
           city,
-          country: locationCountry
+          country: locationCountry,
+          directLink: html
         }
       })
     }
@@ -177,6 +179,11 @@ export class App extends Component {
         <div className="quoteContainer">
           <p className="quote">"{this.state.quote.quote}"</p>
           <p className="author">-{this.state.quote.author}</p>
+        </div>
+
+        <div className="backgroundLocation">
+          <p>{this.state.background.city}{this.state.background.country}</p>
+          <a className="photographer" href={this.state.background.directLink}>{this.state.background.user}/Unsplash</a>
         </div>
       </div>
     )
