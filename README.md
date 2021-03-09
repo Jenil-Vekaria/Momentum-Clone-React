@@ -2,7 +2,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://condescending-cray-c36375.netlify.app/">
     <img src="src/assets/project_logo.gif" alt="Logo" width="80" height="80">
   </a>
   <h3 align="center">Momentum Clone Project</h3>
@@ -48,8 +48,6 @@ This project was built using React along with Weather API and Quote API
 <!-- CONTACT -->
 ## Contact
 Jenil Vekaria - [@github](https://github.com/Jenil-Vekaria)
-
-
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
