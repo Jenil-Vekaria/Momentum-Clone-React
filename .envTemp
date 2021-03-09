@@ -1,6 +1,10 @@
 REACT_APP_QUOTE_API_URL=https://quotes.rest/qod.json?language=en
+
 REACT_APP_WEATHER_API_URL=https://api.openweathermap.org/data/2.5/weather
-REACT_APP_WEATHER_ICON_URL=https://openweathermap.org/img/wn/
 REACT_APP_WEATHER_API_KEY=<YOUR_API_KEY>
+REACT_APP_WEATHER_ICON_URL=https://openweathermap.org/img/wn/
+
+REACT_APP_UNSPLASH_API_URL=https://api.unsplash.com/photos/random
+REACT_APP_UNSPLASH_API_KEY=<YOUR_API_KEY>
 
 /*Remove this line and rename file from .envTemp => .env */
