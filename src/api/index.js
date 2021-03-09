@@ -3,8 +3,20 @@ import axios from 'axios'
 export const fetchQuote = async () => {
     try {
         const storedQuote = localStorage.getItem('quote')
+        let lastFetch = localStorage.getItem('lastmodified')
+        let fetchNew = false
 
-        if (storedQuote) {
+        if (lastFetch) {
+            lastFetch = new Date(lastFetch)
+            const now = new Date()
+
+            const timeDiff = Math.abs(now - lastFetch)
+            const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24))
+
+            fetchNew = dayDiff >= 1
+        }
+
+        if (storedQuote && !fetchNew) {
             return JSON.parse(storedQuote)
         }
         else {
@@ -14,6 +26,7 @@ export const fetchQuote = async () => {
             const { quote, author, background } = quotes[0]
 
             localStorage.setItem('quote', JSON.stringify({ quote, author, background }))
+            localStorage.setItem('lastmodified', new Date())
             return { quote, author, background }
         }
 

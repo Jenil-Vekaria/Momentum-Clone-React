@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { fetchQuote, fetchWeather } from './api'
+import { MdEdit } from "react-icons/md";
 import './App.css'
 
 export class App extends Component {
@@ -11,7 +12,9 @@ export class App extends Component {
       quote: '',
       author: '',
       backgroundImage: '',
+      username: '',
       date: new Date(),
+      editUsername: true,
       weather: {
         city: '',
         country: '',
@@ -23,10 +26,21 @@ export class App extends Component {
   }
 
   async componentDidMount() {
+
+    // Start the timer
     this.timer = setInterval(
       () => this.setState({ date: new Date() }),
       1000
     );
+
+    // Get the username from localstorage
+    const username = localStorage.getItem('username')
+    if (username) {
+      this.setState({
+        username,
+        editUsername: false
+      })
+    }
 
     this.getQuote()
   }
@@ -61,6 +75,31 @@ export class App extends Component {
     }
   }
 
+  saveUsername = (e) => {
+    // Save the username to the state
+    this.setState({
+      username: e.target.value
+    })
+    if (e.key === 'Enter') {
+      // Save
+      localStorage.setItem('username', this.state.username)
+      this.setState({
+        editUsername: false
+      })
+    }
+  }
+
+  getSavedUsername = () => {
+    return localStorage.getItem('username', this.state.username)
+  }
+
+  editUsername = () => {
+    console.log('Edit')
+    this.setState({
+      editUsername: true
+    })
+  }
+
   render() {
 
     const appStyle = {
@@ -72,12 +111,15 @@ export class App extends Component {
       .replace("PM", "")
 
     const welcomeMessgage = this.state.date.getHours() >= 13
-      ? 'Good Evening, '
+      ? 'Good evening, '
       : (
         this.state.date.getHours() >= 12
-          ? 'Good Afternoon, '
-          : 'Good Morning, '
+          ? 'Good afternoon, '
+          : 'Good morning, '
       )
+
+    const welcomeMessageClassAnimation = this.getSavedUsername() && !this.state.editUsername ? 'show' : 'hide'
+    const enterUsernameClassAnimation = this.getSavedUsername() && !this.state.editUsername ? 'hide' : 'show'
 
     return (
       <div className="App">
@@ -94,7 +136,14 @@ export class App extends Component {
 
         <div className="welcomeContainer">
           <p className="clock">{currentTime}</p>
-          <p className="welcomeMessgage">{welcomeMessgage}Jenil</p>
+          <div className={`welcomeMessage  ${welcomeMessageClassAnimation}`}>
+            <p>{welcomeMessgage}{this.state.username}.</p>
+            <span className="editUsername" onClick={this.editUsername}><MdEdit size={20} /></span>
+          </div>
+          <div className={`usernameForm ${enterUsernameClassAnimation}`}>
+            <label className="usernameLabel">What's your name?</label>
+            <input className="username" type="text" disabled={!this.state.editUsername} value={this.state.username} onChange={this.saveUsername} onKeyDown={this.saveUsername} />
+          </div>
         </div>
 
         <div className="quoteContainer">

@@ -12,8 +12,11 @@ body{
 
 .App{
     height: 100vh;
-    width: 100vw;
     background-color: #2c3e50;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .background{
@@ -51,16 +54,60 @@ body{
     position: absolute;
     top: 25%;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 .clock{
     font-size: 10rem;
+    text-align: center;
 }
-.welcomeMessgage{
-    font-size: 3.5rem;
+.welcomeMessage{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.welcomeMessage p{
+    font-size: 3.7rem;
+    margin-left: 50px;
+}
+.editUsername{
+    background: rgba(255,255,255,0.15);
+    border-radius: 40px;
+    padding: 10px;
+    opacity: 0;
+    transition: 0.5s ease;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.editUsername:hover{
+    opacity: 1;
+}
+
+/* User Input */
+.usernameForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    margin-top: -90px;
+}
+.usernameLabel{
+    font-size: 2.8rem;
+}
+.username{
+    background: none;
+    border-style: none;
+    border-bottom: 2px solid white;
+    outline: none;
+    color: white;
+
+    width: 600px;
+    padding-bottom: 10px;
+    margin-top: 20px;
+
+    font-size: 3rem;
     text-align: center;
 }
 
@@ -68,9 +115,6 @@ body{
 .quoteContainer{
     position: absolute;
     bottom: 30px;
-    left: 0;
-    right: 0;
-    margin: auto;
     text-align: center;
     font-size: 18px;
     width: 80%;
@@ -100,15 +144,22 @@ body{
     transform: translateY(-10px);
 }
 
-
+/* Animation Class */
+.show{
+    transition: 1s ease;
+    opacity: 1;
+    
+}
+.hide{
+   transition: 0.5s ease;
+   opacity: 0;
+}
 
 /* Animation */
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
 }
-
-
 /* Responsive Design */
 @media only screen and (max-width: 600px) {
     .clock{
