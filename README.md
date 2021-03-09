@@ -1,3 +1,4 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/846ad875-0d47-4421-ac73-afb969fba135/deploy-status)](https://app.netlify.com/sites/condescending-cray-c36375/deploys)
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
