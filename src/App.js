@@ -49,7 +49,7 @@ export class App extends Component {
       this.setState({
         welcomeMessage: {
           username,
-          editUsername: false
+          editUsername
         }
       })
     }
