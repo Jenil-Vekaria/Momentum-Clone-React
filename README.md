@@ -18,10 +18,11 @@ Personal Dashboard with Digital Clock, Welcome Message, Daily Weather and Inspir
 
 ### Built With
 
-This project was built using React along with Weather API and Quote API
+This project was built using React along with Weather API, Quote API, Unsplash API
 * HTML/CSS/JS
 * [OpenWeatherMap](https://openweathermap.org/)
 * [Quotes API](https://quotes.rest/)
+* [Unsplash API](https://unsplash.com/developers)
 
 
 
@@ -41,6 +42,9 @@ This project was built using React along with Weather API and Quote API
 
 - Open Weather Map API Key
   - Get a free API Key at [OpenWeatherMap](https://openweathermap.org/)
+  - Insert your API key in the .envTemp file
+- Unsplash API
+  - Get a free API Key at [Unsplash API](https://unsplash.com/developers)
   - Insert your API key in the .envTemp file
 - **Change Environmental Variable File**
   - Follow the instruction in the .envTemp file
