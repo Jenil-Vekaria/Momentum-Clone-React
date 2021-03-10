@@ -2,16 +2,17 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 body{
     font-family: 'Roboto', sans-serif;
     color: white;
-    overflow: hidden;
 }
 
 .App{
     height: 100vh;
+    width: 100vw;
     background-color: #2c3e50;
     display: flex;
     flex-direction: column;
@@ -22,8 +23,8 @@ body{
 .background{
     background-position: center;
     background-size: cover;
-    width: 100%;
     height: 100%;
+    width: 100%;
     animation: fadein 3s;
 }
 
@@ -91,10 +92,10 @@ body{
     justify-content: center;
     width: 100%;
     text-align: center;
-    margin-top: -90px;
+    margin-top: -5%;
 }
 .usernameLabel{
-    font-size: 2.8rem;
+    font-size: 2.5rem;
 }
 .username{
     background: none;
@@ -114,21 +115,20 @@ body{
 /* Quote */
 .quoteContainer{
     position: absolute;
-    bottom: 30px;
+    bottom: 5px;
     text-align: center;
     font-size: 18px;
     width: 80%;
-    max-height: 100;
+    height: 60px;
 }
 .quote{
     position: relative;
-    margin-top: 20px;
+    margin-top: 15px;
     transition: 0.5s ease;
     z-index: 2;
 }
 .author{
     position: relative;
-    margin-top: 5px;
     transition: 0.5s ease;
     z-index: 1;
     margin-top: -25px;
@@ -176,6 +176,14 @@ body{
     to   { opacity: 1; }
 }
 /* Responsive Design */
+
+/* Hide Welcome Message when the screen height is too small*/
+@media only screen and (max-height: 600px){
+    .welcomeMessage{
+        display: none;
+    }
+}
+
 @media only screen and (max-width: 1000px){
     .backgroundLocation{
         display: none;
@@ -183,16 +191,27 @@ body{
 }
 @media only screen and (max-width: 600px) {
     .clock{
-        font-size: 8rem;
+        font-size: 6rem;
     }
-    .welcomeMessgage{
-        font-size: 3rem;
+    .welcomeMessage p{
+        font-size: 2.5rem;
+    }
+
+    .username{
+        width: 400px;
     }
     
 }
 @media only screen and (max-width: 450px) {
-    .quoteContainer{
-        display: none;
+    .usernameLabel{
+        font-size: 2rem;
+    }
+    .username{
+        width: 60%;
+    }
+
+    .quote{
+        font-size: 1rem;
     }
 }
 
