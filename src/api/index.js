@@ -35,8 +35,9 @@ function canFetchNewData() {
         const now = new Date()
 
         const timeDiff = Math.abs(now - lastFetch)
-        const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24))
-        fetchNew = dayDiff >= 2
+        const dayDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24))
+
+        fetchNew = dayDiff >= 1
     }
 
     return fetchNew
