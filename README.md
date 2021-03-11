@@ -54,5 +54,5 @@ This project was built using React along with Weather API, Quote API, Unsplash A
 Jenil Vekaria - [@github](https://github.com/Jenil-Vekaria)
 
 <!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-* [Google Chrome Extension: Momentum](https://chrome.google.com/webstore/detail/momentum/laookkfknpbbblfpciffpaejjkokdgca?hl=en)
+## Original Momentum Extension
+* [Momentum](https://chrome.google.com/webstore/detail/momentum/laookkfknpbbblfpciffpaejjkokdgca?hl=en)
